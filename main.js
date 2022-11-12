@@ -3,7 +3,7 @@ const desktopMenu = document.querySelector(".desktop-menu");
 const menuHamIconenu = document.querySelector(".menu");
 const menuCarritoIcon = document.querySelector(".navbar-shopping-cart");
 const mobileMenu = document.querySelector(".mobile-menu");
-const aside = document.querySelector(".product-detail");
+const shoppingCarcontainer = document.querySelector("#shoppingCarContainer");
 const cardsContainer = document.querySelector(".cards-container");
 
 console.log("esta es la clase card containers", cardsContainer);
@@ -11,21 +11,20 @@ console.log("esta es la clase card containers", cardsContainer);
 menuEmail.addEventListener("click", toggleDesktopMenu);
 menuHamIconenu.addEventListener("click", toggleMobileMenu);
 menuCarritoIcon.addEventListener("click", toggleCarritoAside);
-console.log("aside 1", aside);
 
 function toggleDesktopMenu() {
-  const isAsideClosed = aside.classList.contains("inactive");
+  const isAsideClosed = shoppingCarcontainer.classList.contains("inactive");
   if (!isAsideClosed) {
-    aside.classList.add("inactive");
+    shoppingCarcontainer.classList.add("inactive");
   }
 
   desktopMenu.classList.toggle("inactive");
 }
 
 function toggleMobileMenu() {
-  const isAsideClosed = aside.classList.contains("inactive");
+  const isAsideClosed = shoppingCarcontainer.classList.contains("inactive");
   if (!isAsideClosed) {
-    aside.classList.add("inactive");
+    shoppingCarcontainer.classList.add("inactive");
   }
   mobileMenu.classList.toggle("inactive");
 }
@@ -54,8 +53,8 @@ function toggleCarritoAside() {
   }
 
   // Quita la clase inactiva del carrito
-  aside.classList.toggle("inactive");
-  console.log("aside", aside);
+  shoppingCarcontainer.classList.toggle("inactive");
+  console.log("aside", shoppingCarcontainer);
 }
 
 //lista de productos
@@ -81,10 +80,9 @@ productList.push({
     "https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
 });
 
-// for para crear los productos en el HTML
-//iteracción por cada uno de los productos
-
 function renderProducts(arr) {
+  // for para crear los productos en el HTML
+  //iteracción por cada uno de los productos
   for (product of arr) {
     const productCard = document.createElement("div");
     productCard.classList.add("product-card");
@@ -104,24 +102,30 @@ function renderProducts(arr) {
     const productName = document.createElement("p");
     productName.innerText = product.name;
 
-    productInfoDiv.append(productPrice, productName);
-    //productInfoDiv.appendChild(productName);
+    productInfoDiv.appendChild(productPrice);
+    productInfoDiv.appendChild(productName);
 
     const productInfoFigure = document.createElement("figure");
+    console.log("se ha creado la clase figure");
     const productImgCard = document.createElement("img");
+    console.log(
+      "se ha creado la clase figure, con",
+      "icons/bt_add_to_cart.svg"
+    );
     productImgCard.setAttribute("src", "./icons/bt_add_to_cart.svg");
 
     productInfoFigure.appendChild(productImgCard);
 
-    productInfo.append(productInfoDiv, productInfoFigure);
-    //productInfo.appendChild(productInfoFigure);
+    productInfo.appendChild(productInfoDiv);
+    productInfoDiv.appendChild(productInfoFigure);
 
-    productCard.append(productImg, productInfo);
-    //productCard.appendChild(productInfo);
+    productCard.appendChild(productImg);
+    productCard.appendChild(productInfo);
 
     cardsContainer.appendChild(productCard);
     // appendChild() inserta un nuevo nodo dentro de la estructura DOM y append() sirve para varios elementos
   }
 }
-
 renderProducts(productList);
+console.log("se ha llamado la función rederProducts");
+console.log(cardsContainer);
